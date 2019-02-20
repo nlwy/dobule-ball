@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>双色球机选</title>
+  <style>
+    h2 {
+      margin-top: 40px;
+      font-size: 20px;
+      color: red;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    ul {
+      display: flex;
+    }
+
+    ul li {
+      list-style: none;
+      background: radial-gradient(circle at 8px 5px, #fff2f2, red);
+      color: #fff;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      margin: 10px 5px 0;
+      line-height: 28px;
+      text-align: center;
+      font-size: 12px;
+      position: relative;
+      perspective: 1200px;
+      perspective-origin: 50% 50%;
+      animation: round 1s infinite;
+      animation-iteration-count:1;
+      opacity: 0;
+      /* transform: scale(0); */
+      animation-fill-mode: forwards; 
+    }
+    @keyframes round {
+      form {
+        transform: rotate(0);
+        opacity: 0;
+      }
+      to {
+        transform: rotate(720deg);
+        opacity:1;
+      }
+    }
+    ul li:last-child {
+      background: radial-gradient(circle at 8px 5px, #e2f8ff, #6bcbea);
+    }
+
+    button {
+      display: block;
+      width: 80px;
+      line-height: 30px;
+      border: none;
+      background: #6bcbea;
+      outline: none;
+      color: #fff;
+      border-radius: 10px;
+      margin-top: 50px;
+    }
+  </style>
+  <script>
+
+    function DobuleBall() {
+
+      this.ball = []
+      this.$ = function (el) {
+        return document.querySelector(el)
+      }
+      this.$$ = function (el) {
+        return document.createElement(el)
+      }
+      this.addDom()
+    }
+
+    DobuleBall.prototype = {
+      /**
+       * 向页面添加双色球
+       */
+      addDom: function () {
+
+        var that = this
+        var body = this.$('body')
+        var ul = this.$$('ul')
+        var fragment = document.createDocumentFragment()
+
+        this.getBall(33, 6).forEach(function (item) {
+          var li = that.$$('li')
+          li.innerText = item
+          fragment.appendChild(li)
+        })
+
+        ul.appendChild(fragment)
+        body.appendChild(ul)
+
+      },
+      /**
+       * 获取随机数如果为一位在前面加0
+       */
+      randomBall: function (num) {
+        var number = Math.floor(Math.random() * num) + 1
+        number = number < 10 ? '0' + number : number
+        return number.toString()
+      },
+      /**
+       * 获取篮球数并进行排序 最后一位为红球
+       */
+      getBall: function (max, num, exclude) {
+
+        var dobuleBall = []
+
+        while (dobuleBall.length < num) {
+          var redBall = this.randomBall(max)
+          !dobuleBall.includes(redBall) && dobuleBall.push(redBall)
+        }
+
+        dobuleBall.sort((a, b) => a - b)
+        dobuleBall.push(this.randomBall(16))
+        this.ball = dobuleBall
+        console.log(this.ball)
+        return dobuleBall
+      }
+    }
+
+    window.onload = function () {
+      var ball = new DobuleBall()
+      document.querySelector('#but').addEventListener('click', function () {
+        ball.addDom()
+      }, false)
+    }
+
+  </script>
+</head>
+
+<body>
+  <h2>🎉🎉恭喜发财，大吉大利！！!😜🎁💖🎉🎉</h2>
+  <button id="but">机选一注</button>
+</body>
+
+</html>
