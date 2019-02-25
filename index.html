@@ -195,10 +195,10 @@
         var dobuleBall = []
         //获取过滤的红球
         var screenRedBall = this.screenBall(this.$('#redBall').value)
-        this.$('#screenRedBall').innerText = !screenRedBall.length ? '没有过滤号码' : screenRedBall
+        this.$('#screenRedBall').innerText = !screenRedBall.length ? '没有过滤号码' : screenRedBall.sort((a, b) => a - b)
         //获取过滤的篮球
         var screenBlueBall = this.screenBall(this.$('#blueBall').value)
-        this.$('#screenBlueBall').innerText = !screenBlueBall.length ? '没有过滤号码' : screenBlueBall
+        this.$('#screenBlueBall').innerText = !screenBlueBall.length ? '没有过滤号码' : screenBlueBall.sort((a, b) => a - b)
         //选择红球
         while (dobuleBall.length < num) {
           var redBall = this.randomBall(max)
@@ -234,7 +234,7 @@
   <h2>🎉🎉恭喜发财，大吉大利🎉🎉
     <br>🎉🎉祝您中大奖😜🎁💖🎉🎉
     <span>
-      <br>欢迎使用双色球机选系统,版本号v1.0.1
+      <br>欢迎使用双色球机选系统,版本号v1.1.1
       <br>开发者：楠
     </span>
 </h2>
