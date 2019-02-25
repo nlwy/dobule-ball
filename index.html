@@ -33,7 +33,7 @@
       color: #666;
       margin-top: 20px;
     }
-    h3 p{
+    h3 p,h3 b{
       color : red
     }
     h3 p:nth-child(2) {
@@ -167,7 +167,7 @@
       */
       screenBall: function(value){
         try {
-          var screenBall = value.replace(/(^\s*)|(\s*$)/ig, "")
+          var screenBall = value.replace(/(^\s*)|(\s*$)/g, "")
           var screenBallArr = screenBall.indexOf('.') != -1 ? screenBall.split('.') : screenBall.split(' ')
           //去除假元素
           screenBallArr = screenBallArr.filter(a => a)
@@ -238,10 +238,10 @@
       <br>开发者：楠
     </span>
 </h2>
-<h3>输入您要过滤的号码，用空格分开</h3>
+<h3>输入您要过滤的号码，用<b>空格</b>或者<b>点</b>分开</h3>
 <section>
-  <label>红球：<input type="number" id="redBall" pattern="\d*"></label>
-  <label>篮球：<input type="number" id="blueBall" pattern="\d*"></label>
+  <label>红球：<input type="text" id="redBall"></label>
+  <label>篮球：<input type="text" id="blueBall"></label>
 </section>
 <h3>
   <p>您过滤的红球为：<span id="screenRedBall"></span></p>
