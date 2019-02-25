@@ -167,7 +167,9 @@
       */
       screenBall: function(value){
         try {
-          return value ? [...new Set(value.replace(/(^\s*)|(\s*$)/g, "").split(' '))] : []
+          var screenBall = value.replace(/(^\s*)|(\s*$)/g, "")
+          screenBall = screenBall.includes('.') ? screenBall.split('.') : screenBall.split(' ')
+          return value ? [...new Set(screenBall)] : []
         }
         catch (err){
           console.log(err)
