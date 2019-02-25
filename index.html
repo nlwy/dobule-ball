@@ -167,9 +167,10 @@
       */
       screenBall: function(value){
         try {
-          var screenBall = value.replace(/(^\s*)|(\s*$)/g, "")
-          screenBall = screenBall.includes('.') ? screenBall.split('.') : screenBall.split(' ')
-          return value ? [...new Set(screenBall)] : []
+          var screenBall = value.replace(/(^\s*)|(\s*$)/ig, "")
+          var screenBallArr = screenBall.indexOf('.') != -1 ? screenBall.split('.') : screenBall.split(' ')
+          screenBallArr = screenBallArr.filter(a => a)
+          return value ? [...new Set(screenBallArr)] : []
         }
         catch (err){
           console.log(err)
@@ -237,8 +238,8 @@
 </h2>
 <h3>输入您要过滤的号码，用空格分开</h3>
 <section>
-  <label>红球：<input type="number" id="redBall"></label>
-  <label>篮球：<input type="number" id="blueBall"></label>
+  <label>红球：<input type="tel" id="redBall"></label>
+  <label>篮球：<input type="tel" id="blueBall"></label>
 </section>
 <h3>
   <p>您过滤的红球为：<span id="screenRedBall"></span></p>
