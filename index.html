@@ -195,10 +195,10 @@
         var dobuleBall = []
         //获取过滤的红球
         var screenRedBall = this.screenBall(this.$('#redBall').value)
-        this.$('#screenRedBall').innerText = !screenRedBall.length ? '没有过滤号码' : screenRedBall.sort((a, b) => a - b)
+        this.$('#screenRedBall').innerText = !screenRedBall.length ? '没有过滤红号' : screenRedBall.sort((a, b) => a - b)
         //获取过滤的篮球
         var screenBlueBall = this.screenBall(this.$('#blueBall').value)
-        this.$('#screenBlueBall').innerText = !screenBlueBall.length ? '没有过滤号码' : screenBlueBall.sort((a, b) => a - b)
+        this.$('#screenBlueBall').innerText = !screenBlueBall.length ? '没有过滤蓝号' : screenBlueBall.sort((a, b) => a - b)
         //选择红球
         while (dobuleBall.length < num) {
           var redBall = this.randomBall(max)
