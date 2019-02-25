@@ -11,14 +11,34 @@
       margin-top: 40px;
       font-size: 20px;
       color: red;
+      padding: 0 20px;
+      width: 100%;
+      box-sizing: border-box;
+      text-align: center;
     }
 
+    h2 span {
+      font-size: 14px;
+    }
     body {
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-
+    h3 {
+      font-size: 14px;
+      width :100%;
+      box-sizing: border-box;
+      padding: 0 20px;
+      color: #666;
+      margin-top: 20px;
+    }
+    h3 p{
+      color : red
+    }
+    h3 p:nth-child(2) {
+      color: #6bcbea;
+    }
     * {
       padding: 0;
       margin: 0;
@@ -38,7 +58,7 @@
       margin: 15px 5px 0;
       line-height: 40px;
       text-align: center;
-      font-size: 20x;
+      font-size: 20px;
       font-weight: bold;
       position: relative;
       perspective: 1200px;
@@ -77,6 +97,34 @@
       margin-bottom: 30px;
       font-size: 18px;
     }
+    section {
+      padding: 0 20px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    section label {
+      display: flex;
+      width: 100%;
+      padding: 10px 0;
+      font-size: 14px;
+      font-weight: bold;
+      align-items: center;
+      color: red;
+    }
+    section label:nth-child(2),section label:nth-child(2) input {
+      color : #6bcbea;
+    }
+   
+    section label input {
+      height: 30px;
+      border: 1px solid #ccc;
+      padding-left: 5px;
+      font-size: 16px;
+      font-weight: bold;
+      -webkit-appearance: none;
+      flex: 1;
+      color: red;
+    }
   </style>
   <script>
 
@@ -89,7 +137,8 @@
       this.$$ = function (el) {
         return document.createElement(el)
       }
-      this.addDom()
+      // this.addDom()
+
     }
 
     DobuleBall.prototype = {
@@ -114,6 +163,18 @@
 
       },
       /**
+      * 筛选红球
+      */
+      screenBall: function(value){
+        try {
+          return value ? [...new Set(value.replace(/(^\s*)|(\s*$)/g, "").split(' '))] : []
+        }
+        catch (err){
+          console.log(err)
+          alert('您输入的筛选号码有误，请重新输入。')
+        }
+      },
+      /**
        * 获取随机数如果为一位在前面加0
        */
       randomBall: function (num) {
@@ -127,14 +188,27 @@
       getBall: function (max, num, exclude) {
 
         var dobuleBall = []
-
+        //获取过滤的红球
+        var screenRedBall = this.screenBall(this.$('#redBall').value)
+        this.$('#screenRedBall').innerText = !screenRedBall.length ? '没有过滤号码' : screenRedBall
+        //获取过滤的篮球
+        var screenBlueBall = this.screenBall(this.$('#blueBall').value)
+        this.$('#screenBlueBall').innerText = !screenBlueBall.length ? '没有过滤号码' : screenBlueBall
+        //选择红球
         while (dobuleBall.length < num) {
           var redBall = this.randomBall(max)
-          !dobuleBall.includes(redBall) && dobuleBall.push(redBall)
+          if(!dobuleBall.includes(redBall) && !screenRedBall.includes(redBall)){
+            dobuleBall.push(redBall)
+          }
         }
 
         dobuleBall.sort((a, b) => a - b)
-        dobuleBall.push(this.randomBall(16))
+        //选择垒球
+        while (dobuleBall.length < 7) {
+          var blueBall = this.randomBall(16)
+          !screenBlueBall.includes(blueBall) && dobuleBall.push(blueBall)
+        }
+
         this.ball = dobuleBall
         console.log(this.ball)
         return dobuleBall
@@ -152,8 +226,24 @@
 </head>
 
 <body>
-  <h2>🎉🎉恭喜发财，大吉大利，祝您中大奖😜🎁💖🎉🎉</h2>
-  <button id="but">机选一注</button>
+  <h2>🎉🎉恭喜发财，大吉大利🎉🎉
+    <br>🎉🎉祝您中大奖😜🎁💖🎉🎉
+    <span>
+      <br>欢迎使用双色球机选系统,版本号v1.0.1
+      <br>开发者：楠
+    </span>
+</h2>
+<h3>输入您要过滤的号码，用空格分开</h3>
+<section>
+  <label>红球：<input type="text" id="redBall"></label>
+  <label>篮球：<input type="text" id="blueBall"></label>
+</section>
+<h3>
+  <p>您过滤的红球为：<span id="screenRedBall"></span></p>
+  <p>您过滤的篮球为：<span id="screenBlueBall"></span></p>
+  <br>以下是您过滤后机选的双色球：
+</h3>
+<button id="but">机选一注</button>
 </body>
 
 </html>
