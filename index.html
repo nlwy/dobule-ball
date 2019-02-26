@@ -138,6 +138,7 @@
         return document.createElement(el)
       }
       // this.addDom()
+      this.deleteBall()
 
     }
 
@@ -161,6 +162,17 @@
         ul.appendChild(fragment)
         body.insertBefore(ul, this.$('#but'))
 
+      },
+      /*
+      * 保留input输入值
+      */
+      deleteBall: function(){
+        this.$('body').addEventListener('click',function(e){
+          const ul = e.target.parentElement
+          if(ul.localName === 'ul'){
+            e.target.parentElement.remove()
+          }
+        })
       },
       /**
       * 筛选红球
@@ -240,8 +252,10 @@
 </h2>
 <h3>输入您要过滤的号码，用<b>空格</b>或者<b>点</b>分开</h3>
 <section>
-  <label>红球：<input type="text" id="redBall"></label>
-  <label>篮球：<input type="text" id="blueBall"></label>
+  <form action="#">
+    <label>红球：<input type="text" id="redBall"></label>
+    <label>篮球：<input type="text" id="blueBall"></label>
+  </form>
 </section>
 <h3>
   <p>您过滤的红球为：<span id="screenRedBall"></span></p>
