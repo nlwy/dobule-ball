@@ -32,6 +32,7 @@
       padding: 0 20px;
       color: #666;
       margin-top: 20px;
+      appearance: none;
     }
     h3 p,h3 b{
       color : red
@@ -42,10 +43,12 @@
     * {
       padding: 0;
       margin: 0;
+      -webkit-tap-highlight-color: transparent;
     }
 
     ul {
       display: flex;
+      cursor: pointer;
     }
 
     ul li {
@@ -97,6 +100,9 @@
       margin-bottom: 30px;
       font-size: 18px;
     }
+    button:active {
+      background: #7bcbea;
+    }
     section {
       padding: 0 20px;
       width: 100%;
@@ -137,6 +143,8 @@
       this.$$ = function (el) {
         return document.createElement(el)
       }
+      this.body = this.$('body')
+
       // this.addDom()
       this.deleteBall()
 
@@ -149,7 +157,6 @@
       addDom: function () {
 
         var that = this
-        var body = this.$('body')
         var ul = this.$$('ul')
         var fragment = document.createDocumentFragment()
 
@@ -160,19 +167,21 @@
         })
 
         ul.appendChild(fragment)
-        body.insertBefore(ul, this.$('#but'))
+        this.body.insertBefore(ul, this.$('#but'))
 
       },
       /*
       * 保留input输入值
       */
       deleteBall: function(){
-        this.$('body').addEventListener('click',function(e){
+       
+        this.body.addEventListener('click',function(e){
           const ul = e.target.parentElement
           if(ul.localName === 'ul'){
             e.target.parentElement.remove()
           }
-        })
+        },false)
+        
       },
       /**
       * 筛选红球
